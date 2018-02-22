@@ -1,0 +1,100 @@
+switch.fibaro_wall_plug_livingroom_switch:
+  friendly_name: Livingroom radiator
+  icon: mdi:radiator
+switch.fibaro_wall_plug_kitchen_switch:
+  friendly_name: Kitchen radiator
+  icon: mdi:radiator
+switch.fibaro_wall_plug_bedroom_switch:
+  friendly_name: Bedroom radiator
+  icon: mdi:radiator
+sensor.fibaro_wall_plug_livingroom_power:
+  friendly_name: Livingroom radiator power
+  icon: mdi:gauge
+sensor.fibaro_wall_plug_kitchen_power:
+  friendly_name: Kitchen radiator power
+  icon: mdi:gauge
+sensor.fibaro_wall_plug_bedroom_power:
+  friendly_name: Bedroom radiator power
+  icon: mdi:gauge
+sensor.fibaro_wall_plug_livingroom_energy:
+  friendly_name: Livingroom radiator energy
+  icon: mdi:chart-bar
+sensor.fibaro_wall_plug_kitchen_energy:
+  friendly_name: Kitchen radiator energy
+  icon: mdi:chart-bar
+sensor.fibaro_wall_plug_bedroom_energy:
+  friendly_name: Bedroom radiator energy
+  icon: mdi:chart-bar
+sensor.fibaro_wall_plug_livingroom_power_2:
+  hidden: true
+sensor.fibaro_wall_plug_kitchen_power_2:
+  hidden: true
+sensor.fibaro_wall_plug_bedroom_power_2:
+  hidden: true
+zwave.fibaro_wall_plug_livingroom:
+  friendly_name: Fibaro Wall Plug Livingroom
+zwave.fibaro_wall_plug_kitchen:
+  friendly_name: Fibaro Wall Plug Kitchen
+zwave.fibaro_wall_plug_bedroom:
+  friendly_name: Fibaro Wall Plug Bedroom
+sensor.livingroom_humidity:
+  icon: mdi:water-percent
+sensor.kitchen_humidity:
+  icon: mdi:water-percent
+sensor.bedroom_humidity:
+  icon: mdi:water-percent
+group.all_temp:
+  hidden: true
+light.tradfri_group:
+  hidden: true
+sensor.yucca_palm_moisture:
+  icon: mdi:water-percent
+sensor.yucca_palm_light_intensity:
+  icon: mdi:white-balance-sunny
+sensor.yucca_palm_conductivity:
+  icon: mdi:magnet
+sensor.yucca_palm_battery:
+  icon: mdi:battery
+sensor.money_tree_moisture:
+  icon: mdi:water-percent
+sensor.money_tree_light_intensity:
+  icon: mdi:white-balance-sunny
+sensor.money_tree_conductivity:
+  icon: mdi:magnet
+sensor.money_tree_battery:
+  icon: mdi:battery
+light.tradfri_bulb_e27_ws_opal_980lm_2:
+  friendly_name: Upward lamp
+light.tradfri_bulb_e27_ws_opal_980lm:
+  friendly_name: Sideways lamp
+input_slider.lamp_bright:
+  hidden: true
+input_slider.lamp_temp:
+  hidden: true
+sensor.vacuum_fan_speed:
+  icon: mdi:fan
+sensor.vacuum_cleaned_area:
+  icon: mdi:earth-box
+sensor.vacuum_cleaning_time:
+  icon: mdi:clock
+device_tracker.pi_iphone:
+  icon: mdi:home
+sensor.tradfri_remote_control:
+  friendly_name: Tradfri remote control
+  icon: mdi:battery
+climate.multireg_thermostat_energy_heat:
+  hidden: true
+climate.multireg_thermostat_heating:
+  friendly_name: Bathroom Thermostat
+sensor.multireg_thermostat_temperature:
+  friendly_name: Bathroom floor temperature
+sensor.disk_use_percent_home:
+  friendly_name: Disk use
+sensor.memory_use_percent:
+  friendly_name: Memory use
+sensor.christoffers_iphone_battery_level:
+  hidden: True
+sensor.christoffers_iphone_battery_state:
+  hidden: true
+sensor.hass_db_size:
+  icon: mdi:harddisk

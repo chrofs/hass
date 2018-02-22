@@ -1,0 +1,114 @@
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level_2_1:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level_3_1:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting_2_32:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting_4_32:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_exporting_3_32:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management_3_11:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management_2_11:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_management_4_11:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid_2_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid_3_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_sourcenodeid_4_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_level_4_1:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type_2_0:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type_3_0:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_alarm_type_4_0:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_2_8:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_4_8:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgwpef_wall_plug_gen5_power_3_8:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_bedroom_power_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_kitchen_power_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_wall_plug_livingroom_power_2:
+  ignored: true
+  polling_intensity: 0
+sensor.multireg_thermostat_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.multireg_thermostat_energy:
+  ignored: true
+  polling_intensity: 0

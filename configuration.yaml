@@ -1,0 +1,248 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 31
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+
+  customize: !include customize.yaml
+# Show links to resources in log and frontend
+
+# Enables the frontend
+frontend:
+  javascript_version: es5
+
+map:
+
+recorder:
+  purge_interval: 1
+  purge_keep_days: 2
+  db_url: !secret db_url
+  exclude:
+    domains:
+     - automation
+     - weblink
+     - updater
+    entities:
+     - sun.sun
+     - sensor.last_boot
+     - sensor.date
+     - sensor.yr_symbol
+     - sensor.since_last_boot
+     - zwave.aeotec_zw090_zstick_gen5
+     - zwave.fibaro_wall_plug_livingroom
+     - zwave.fibaro_wall_plug_kitchen
+     - zwave.fibaro_wall_plug_bedroom
+     - sensor.fibaro_wall_plug_livingroom_power_2
+     - sensor.fibaro_wall_plug_kitchen_power_2
+     - sensor.fibaro_wall_plug_bedroom_power_2
+     - sensor.yucca_palm_battery
+     - sensor.vacuum_cleaning_time
+     - light.tradfri_group
+     - sensor.home_assistant_uptime
+     - sensor.tradfri_remote_control
+
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret api_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+  include_used_components: true
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time.
+history:
+  exclude:
+    domains:
+     - automation
+     - weblink
+     - updater
+    entities:
+     - sun.sun
+     - sensor.last_boot
+     - sensor.date
+     - sensor.yr_symbol
+     - sensor.since_last_boot
+     - zwave.aeotec_zw090_zstick_gen5
+     - zwave.fibaro_wall_plug_livingroom
+     - zwave.fibaro_wall_plug_kitchen
+     - zwave.fibaro_wall_plug_bedroom
+     - sensor.fibaro_wall_plug_livingroom_power_2
+     - sensor.fibaro_wall_plug_kitchen_power_2
+     - sensor.fibaro_wall_plug_bedroom_power_2
+     - sensor.yucca_palm_battery
+     - sensor.vacuum_cleaning_time
+     - light.tradfri_group
+     - sensor.home_assistant_uptime
+     - sensor.tradfri_remote_control
+
+# View all events in a logbook
+logbook:
+  exclude:
+    domains:
+     - weblink
+     - updater
+    entities:
+     - sun.sun
+     - sensor.last_boot
+     - sensor.date
+     - sensor.yr_symbol
+     - sensor.since_last_boot
+     - zwave.aeotec_zw090_zstick_gen5
+     - zwave.fibaro_wall_plug_livingroom
+     - zwave.fibaro_wall_plug_kitchen
+     - zwave.fibaro_wall_plug_bedroom
+     - sensor.fibaro_wall_plug_livingroom_power_2
+     - sensor.fibaro_wall_plug_kitchen_power_2
+     - sensor.fibaro_wall_plug_bedroom_power_2
+     - sensor.yucca_palm_battery
+
+# Track the sun
+sun:
+
+# Text to speech
+#tts:
+  #platform: google
+
+# mqtt
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  keepalive: 60
+
+#Device Tracker
+device_tracker:
+  - platform: owntracks
+
+zone:
+  - name: Work
+    latitude: !secret work_latitude
+    longitude: !secret work_longitude
+    radius: 250
+    icon: mdi:worker
+
+#LG
+media_player:
+  platform: lg_netcast
+  host: !secret lg_host
+  access_token: !secret lg_access_token
+  name: TV
+
+#Spotify
+#  - platform: spotify
+#    client_id: !secret spotify_client_id
+#    client_secret: !secret spotify_client_secret
+#    name: Spotify
+
+#Ruter
+#panel_iframe:
+#  ruter:
+#    title: 'Ruter'
+#    icon: mdi:train
+#    url: !secret ruter_url
+
+#IOS app
+ios:
+
+#Notifier
+#notify:
+#  - platform: ios
+#    name: iOSApp
+#    target: !secret spotify_target
+
+# Sensors
+sensor: !include sensor.yaml
+
+# Groups and Views
+group: !include groups.yaml
+
+# Automation.
+automation: !include automations.yaml
+
+# Inputs
+input_boolean: !include inputs/input_boolean.yaml
+#input_slider: !include inputs/input_slider.yaml
+
+#Configuration page
+config:
+
+# zwave
+zwave:
+  device_config: !include zwave_device_config.yaml
+  usb_path: /dev/ttyACM0
+  polling_interval:  120000
+  new_entity_ids: true
+
+#IKEA tradfri
+tradfri:
+  host: !secret tradfri_host
+
+#Xiaomi vacuum
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+
+logger:
+  default: warn
+  logs:
+    # Hide botvac connexion errors which happen sometimes:
+    homeassistant.components.vacuum: error
+    miio.device: critical
+
+device_sun_light_trigger:
+  light_group: group.ikea_lights
+  device_group: group.all_devices
+  disable_turn_off: 0
+
+# Thermostats
+climate:
+  - platform: generic_thermostat
+    name: Livingroom
+    heater: switch.fibaro_wall_plug_livingroom_switch
+    target_sensor: sensor.livingroom_temperature
+    target_temp: 21
+    min_temp: 15
+    max_temp: 25
+    cold_tolerance: 0.1
+    hot_tolerance: 0.1
+    min_cycle_duration:
+      seconds: 5
+  - platform: generic_thermostat
+    name: Kitchen
+    heater: switch.fibaro_wall_plug_kitchen_switch
+    target_sensor: sensor.kitchen_temperature
+    target_temp: 21
+    min_temp: 15
+    max_temp: 25
+    cold_tolerance: 0.1
+    hot_tolerance: 0.1
+    min_cycle_duration:
+      seconds: 5
+  - platform: generic_thermostat
+    name: Bedroom
+    heater: switch.fibaro_wall_plug_bedroom_switch
+    target_sensor: sensor.bedroom_temperature
+    target_temp: 21
+    min_temp: 15
+    max_temp: 25
+    cold_tolerance: 0.1
+    hot_tolerance: 0.1
+    min_cycle_duration:
+      seconds: 5

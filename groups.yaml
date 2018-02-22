@@ -1,0 +1,156 @@
+##############groups.yaml#################
+#Environment
+environment_view:
+  view: yes
+  icon: mdi:radiator
+  name: Climate
+  entities:
+   - group.livingroom_environment
+   - group.kitchen_environment
+   - group.bedroom_environment
+   - group.bathroom_environment
+   - group.away_mode_group
+all_temp:
+  entities:
+   - climate.livingroom
+   - climate.kitchen
+   - climate.bedroom
+livingroom_environment:
+  name: Livingroom
+  entities:
+   - sensor.livingroom_humidity
+   - sensor.livingroom_temperature
+   - switch.fibaro_wall_plug_livingroom_switch
+   - sensor.fibaro_wall_plug_livingroom_power
+   - sensor.fibaro_wall_plug_livingroom_energy
+   - climate.livingroom
+kitchen_environment:
+  name: Kitchen
+  entities:
+   - sensor.kitchen_humidity
+   - sensor.kitchen_temperature
+   - switch.fibaro_wall_plug_kitchen_switch
+   - sensor.fibaro_wall_plug_kitchen_power
+   - sensor.fibaro_wall_plug_kitchen_energy
+   - climate.kitchen
+bedroom_environment:
+  name: Bedroom
+  entities:
+   - sensor.bedroom_humidity
+   - sensor.bedroom_temperature
+   - switch.fibaro_wall_plug_bedroom_switch
+   - sensor.fibaro_wall_plug_bedroom_power
+   - sensor.fibaro_wall_plug_bedroom_energy
+   - climate.bedroom
+bathroom_environment:
+  name: Bathroom
+  entities:
+   - sensor.multireg_thermostat_temperature
+   - climate.multireg_thermostat_heating
+away_mode_group:
+  name: Away mode
+  entities:
+   - input_boolean.away_mode
+
+#Lights
+light_view:
+  view: yes
+  icon: mdi:lightbulb-on
+  name: Lights
+  entities:
+    - group.ikea_lights
+    #- group.brightness_group
+ikea_lights:
+  name: Oslo Lamp
+  entities:
+    - light.tradfri_bulb_e27_ws_opal_980lm_2
+    - light.tradfri_bulb_e27_ws_opal_980lm
+#brightness_group:
+#  name: Brightness
+#  entities:
+#   - input_slider.lamp_bright
+#   - input_slider.lamp_temp
+
+#LG TV
+tv_view:
+  view: yes
+  icon: mdi:television
+  name: Media
+  entities:
+   - group.tv_remote
+   #- group.spotify
+tv_remote:
+  name: TV
+  entities:
+   - media_player.TV
+#spotify:
+#  name: Spotify
+#  entities:
+#   - media_player.spotify
+
+# Flowers
+flower_view:
+  view: yes
+  icon: mdi:flower
+  name: Flower
+  entities:
+   - group.yucca_palm
+   - group.money_tree
+yucca_palm:
+  name: Yucca Palm
+  entities:
+   - sensor.yucca_palm_moisture
+   - sensor.yucca_palm_light_intensity
+   - sensor.yucca_palm_temperature
+   - sensor.yucca_palm_conductivity
+   - sensor.yucca_palm_battery
+money_tree:
+  name: Money Tree
+  entities:
+   - sensor.money_tree_moisture
+   - sensor.money_tree_light_intensity
+   - sensor.money_tree_temperature
+   - sensor.money_tree_conductivity
+   - sensor.money_tree_battery
+
+#Vacuum
+vacuum_view:
+  view: yes
+  icon: mdi:roomba
+  name: Vacuum
+  entities:
+    - group.vacuum
+vacuum:
+  name: Xiaomi Vacuum
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+    - sensor.vacuum_status
+    - sensor.vacuum_battery_level
+    - sensor.vacuum_cleaned_area
+    - sensor.vacuum_cleaning_time
+    - sensor.vacuum_fan_speed
+
+#System monitor
+monitor_view:
+  view: yes
+  icon: mdi:chip
+  name: Monitor
+  entities:
+    - group.sensor_pi
+sensor_pi:
+  name: Server
+  entities:
+    - sensor.processor_use
+    - sensor.memory_use_percent
+    - sensor.disk_use_percent_home
+    - sensor.hass_db_size
+    - sensor.since_last_boot
+    - sensor.home_assistant_uptime
+    - sensor.network_in_eth0
+    - sensor.network_out_eth0
+    - sensor.tradfri_remote_control
+
+my_devices:
+  name: iPhone
+  entities:
+    - device_tracker.pi_iphone
