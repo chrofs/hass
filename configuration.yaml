@@ -177,6 +177,7 @@ automation: !include automations.yaml
 
 # Inputs
 input_boolean: !include inputs/input_boolean.yaml
+input_number: !include inputs/input_number.yaml
 #input_slider: !include inputs/input_slider.yaml
 
 #Configuration page
@@ -187,7 +188,6 @@ zwave:
   device_config: !include zwave_device_config.yaml
   usb_path: /dev/ttyACM0
   polling_interval:  120000
-  new_entity_ids: true
 
 #IKEA tradfri
 tradfri:
@@ -211,6 +211,8 @@ device_sun_light_trigger:
   device_group: group.all_devices
   disable_turn_off: 0
 
+homekit:
+
 # Thermostats
 climate:
   - platform: generic_thermostat
@@ -224,6 +226,8 @@ climate:
     hot_tolerance: 0.1
     min_cycle_duration:
       seconds: 5
+    keep_alive:
+      minutes: 3
   - platform: generic_thermostat
     name: Kitchen
     heater: switch.fibaro_wall_plug_kitchen_switch
@@ -235,6 +239,8 @@ climate:
     hot_tolerance: 0.1
     min_cycle_duration:
       seconds: 5
+    keep_alive:
+      minutes: 3
   - platform: generic_thermostat
     name: Bedroom
     heater: switch.fibaro_wall_plug_bedroom_switch
@@ -246,3 +252,5 @@ climate:
     hot_tolerance: 0.1
     min_cycle_duration:
       seconds: 5
+    keep_alive:
+      minutes: 3

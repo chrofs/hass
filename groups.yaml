@@ -10,6 +10,7 @@ environment_view:
    - group.bedroom_environment
    - group.bathroom_environment
    - group.away_mode_group
+   - group.power_group
 all_temp:
   entities:
    - climate.livingroom
@@ -51,6 +52,14 @@ away_mode_group:
   name: Away mode
   entities:
    - input_boolean.away_mode
+power_group:
+  name: Power Management
+  entities:
+    - sensor.current_power_consumption
+    - sensor.daily_livingroom_power_consumption
+    - sensor.daily_bedroom_power_consumption
+    - sensor.daily_kitchen_power_consumption
+    - sensor.daily_total_power_consumption
 
 #Lights
 light_view:
@@ -95,7 +104,7 @@ flower_view:
   name: Flower
   entities:
    - group.yucca_palm
-   - group.money_tree
+   - group.succulent
 yucca_palm:
   name: Yucca Palm
   entities:
@@ -104,14 +113,14 @@ yucca_palm:
    - sensor.yucca_palm_temperature
    - sensor.yucca_palm_conductivity
    - sensor.yucca_palm_battery
-money_tree:
-  name: Money Tree
+succulent:
+  name: Succulent
   entities:
-   - sensor.money_tree_moisture
-   - sensor.money_tree_light_intensity
-   - sensor.money_tree_temperature
-   - sensor.money_tree_conductivity
-   - sensor.money_tree_battery
+   - sensor.succulent_moisture
+   - sensor.succulent_light_intensity
+   - sensor.succulent_temperature
+   - sensor.succulent_conductivity
+   - sensor.succulent_battery
 
 #Vacuum
 vacuum_view:

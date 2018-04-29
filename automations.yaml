@@ -51,6 +51,7 @@
     service: climate.set_temperature
     data:
       temperature: 19
+
 - id: reset_day_temp
   alias: Reset day temp
   initial_state: true
@@ -104,6 +105,7 @@
       data_template:
         entity_id: climate.kitchen
         temperature: 20
+
 - id: reset_night_temp
   alias: Reset night temp
   initial_state: true
@@ -129,6 +131,68 @@
         entity_id: climate.kitchen
         temperature: 21
 
+- id: reduce_weekend_temp
+  alias: Reduce weekend temp
+  initial_state: true
+  hide_entity: false
+  trigger:
+    platform: time
+    at: '09:00:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.away_mode
+      state: 'off'
+  action:
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.multireg_thermostat_heating
+        temperature: 19
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.livingroom
+        temperature: 20.5
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.bedroom
+        temperature: 19
+
+- id: reset_weekend_temp
+  alias: Reset weekend temp
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    at: '20:00:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.away_mode
+      state: 'off'
+  action:
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.multireg_thermostat_heating
+        temperature: 27
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.livingroom
+        temperature: 21
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.bedroom
+        temperature: 21
+
 - id: water_yucca_alert
   alias: Alarm me to water yucca palm
   initial_state: true
@@ -149,8 +213,9 @@
   - data:
       message: Water Yucca Palm!
     service: persistent_notification.create
-- id: water_money_alert
-  alias: Alarm me to water money tree
+
+- id: water_succulent_alert
+  alias: Alarm me to water succulent
   initial_state: true
   hide_entity: true
   trigger:
@@ -159,16 +224,17 @@
     platform: state
     to: home
   condition:
-  - below: '21'
+  - below: '18'
     condition: numeric_state
-    entity_id: sensor.money_tree_moisture
+    entity_id: sensor.succulent_moisture
   action:
   - data:
-      message: Water Money Tree!
+      message: Water Succulent!
     service: notify.ios_iphone
   - data:
-      message: Water Money Tree!
+      message: Water Succulent!
     service: persistent_notification.create
+
 - id: change_brightness_ikea
   alias: Change Brightness
   initial_state: false
@@ -187,3 +253,24 @@
     data_template:
       entity_id: light.tradfri_bulb_e27_ws_opal_980lm_2
       color_temp: '{{ states.input_slider.lamp_temp.state | int }}'
+
+- id: store_meter_readings_at_midnight
+  alias: store_livingroom_energy_at_midnight
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    at: '00:00:00'
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.livingroom_energy_at_midnight
+        value: "{{ states('sensor.fibaro_wall_plug_livingroom_energy')|float }}"
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.bedroom_energy_at_midnight
+        value: "{{ states('sensor.fibaro_wall_plug_bedroom_energy')|float }}"
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.kitchen_energy_at_midnight
+        value: "{{ states('sensor.fibaro_wall_plug_kitchen_energy')|float }}"

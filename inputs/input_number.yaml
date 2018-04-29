@@ -1,0 +1,19 @@
+######################input_number.yaml#########################
+livingroom_energy_at_midnight:
+  name: livingroom_energy_at_midnight
+  mode: box
+  min: 0
+  max: 10000
+  unit_of_measurement: kWh
+bedroom_energy_at_midnight:
+  name: bedroom_energy_at_midnight
+  mode: box
+  min: 0
+  max: 10000
+  unit_of_measurement: kWh
+kitchen_energy_at_midnight:
+  name: energy_energy_at_midnight
+  mode: box
+  min: 0
+  max: 10000
+  unit_of_measurement: kWh

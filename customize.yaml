@@ -55,13 +55,13 @@ sensor.yucca_palm_conductivity:
   icon: mdi:magnet
 sensor.yucca_palm_battery:
   icon: mdi:battery
-sensor.money_tree_moisture:
+sensor.succulent_moisture:
   icon: mdi:water-percent
-sensor.money_tree_light_intensity:
+sensor.succulent_light_intensity:
   icon: mdi:white-balance-sunny
-sensor.money_tree_conductivity:
+sensor.succulent_conductivity:
   icon: mdi:magnet
-sensor.money_tree_battery:
+sensor.succulent_battery:
   icon: mdi:battery
 light.tradfri_bulb_e27_ws_opal_980lm_2:
   friendly_name: Upward lamp
@@ -85,7 +85,7 @@ sensor.tradfri_remote_control:
 climate.multireg_thermostat_energy_heat:
   hidden: true
 climate.multireg_thermostat_heating:
-  friendly_name: Bathroom Thermostat
+  friendly_name: Bathroom thermostat
 sensor.multireg_thermostat_temperature:
   friendly_name: Bathroom floor temperature
 sensor.disk_use_percent_home:
@@ -98,3 +98,17 @@ sensor.christoffers_iphone_battery_state:
   hidden: true
 sensor.hass_db_size:
   icon: mdi:harddisk
+sensor.current_power_consumption:
+  icon: mdi:gauge
+sensor.daily_livingroom_power_consumption:
+  friendly_name: Daily livingroom energy
+  icon: mdi:chart-bar
+sensor.daily_bedroom_power_consumption:
+  friendly_name: Daily bedroom energy
+  icon: mdi:chart-bar
+sensor.daily_kitchen_power_consumption:
+  friendly_name: Daily kitchen energy
+  icon: mdi:chart-bar
+sensor.daily_total_power_consumption:
+  friendly_name: Daily total energy
+  icon: mdi:chart-bar

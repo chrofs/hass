@@ -49,8 +49,8 @@
     - battery
 
 - platform: miflora
-  mac: !secret miflora_mac_money
-  name: "Money Tree"
+  mac: !secret miflora_mac_succulent
+  name: "Succulent"
   force_update: true
   median: 3
   monitored_conditions:
@@ -123,3 +123,43 @@
       query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "value" FROM information_schema.tables WHERE table_schema="hass_db" GROUP BY table_schema;'
       column: 'value'
       unit_of_measurement: MB
+- platform: template
+  sensors:
+    current_power_consumption:
+      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_power")|int + states("sensor.fibaro_wall_plug_bedroom_power")|int + states("sensor.fibaro_wall_plug_kitchen_power")|int }}'
+      friendly_name: 'Current power consumption'
+      unit_of_measurement: W
+#- platform: template
+#  sensors:
+#    livingroom_power_yesterday:
+#      value_template: >
+#        {% if now().hour == 21 and now().minute == 10 %}
+#          {{ states("sensor.fibaro_wall_plug_livingroom_energy") | float }}
+#        {%- endif %}
+#
+#- platform: template
+#  sensors:
+#    livingroom_daily_power:
+#      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_energy")|float - states("sensor.livingroom_power_yesterday")|float }}'
+#      friendly_name: 'Current power consumption'
+#      unit_of_measurement: kWh
+- platform: template
+  sensors:
+    daily_livingroom_power_consumption:
+      value_template: "{{ (states('sensor.fibaro_wall_plug_livingroom_energy')|float - states('input_number.livingroom_energy_at_midnight')|float) | round(1) }}"
+      unit_of_measurement: kWh
+- platform: template
+  sensors:
+    daily_bedroom_power_consumption:
+      value_template: "{{ (states('sensor.fibaro_wall_plug_bedroom_energy')|float - states('input_number.bedroom_energy_at_midnight')|float) | round(1) }}"
+      unit_of_measurement: kWh
+- platform: template
+  sensors:
+    daily_kitchen_power_consumption:
+      value_template: "{{ (states('sensor.fibaro_wall_plug_kitchen_energy')|float - states('input_number.kitchen_energy_at_midnight')|float) | round(1) }}"
+      unit_of_measurement: kWh
+- platform: template
+  sensors:
+    daily_total_power_consumption:
+      value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float + states('sensor.daily_bedroom_power_consumption')|float + states('sensor.daily_kitchen_power_consumption')|float) | round(1) }}"
+      unit_of_measurement: kWh

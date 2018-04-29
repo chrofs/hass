@@ -1,0 +1,13 @@
+######################input_slider.yaml#########################
+lamp_bright:
+  name: Lamp Brightness
+  initial: 0
+  min: 0
+  max: 255
+  step: 10
+lamp_temp:
+  name: Lamp Temp
+  initial: 300
+  min: 154
+  max: 500
+  step: 10
