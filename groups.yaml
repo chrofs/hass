@@ -125,7 +125,7 @@ succulent:
 #Vacuum
 vacuum_view:
   view: yes
-  icon: mdi:roomba
+  icon: mdi:robot-vacuum
   name: Vacuum
   entities:
     - group.vacuum

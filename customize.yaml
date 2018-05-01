@@ -93,7 +93,7 @@ sensor.disk_use_percent_home:
 sensor.memory_use_percent:
   friendly_name: Memory use
 sensor.christoffers_iphone_battery_level:
-  hidden: True
+  hidden: true
 sensor.christoffers_iphone_battery_state:
   hidden: true
 sensor.hass_db_size:
@@ -112,3 +112,9 @@ sensor.daily_kitchen_power_consumption:
 sensor.daily_total_power_consumption:
   friendly_name: Daily total energy
   icon: mdi:chart-bar
+input_number.bedroom_energy_at_midnight:
+  hidden: true
+input_number.kitchen_energy_at_midnight:
+  hidden: true
+input_number.livingroom_energy_at_midnight:
+  hidden: true

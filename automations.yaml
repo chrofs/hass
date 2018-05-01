@@ -74,7 +74,37 @@
       state: 'off'
   action:
     - service: climate.set_temperature
-      data:
+      data_template:
+        entity_id: climate.livingroom
+        temperature: 21
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.kitchen
+        temperature: 21
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.bedroom
+        temperature: 20
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.multireg_thermostat_heating
+        temperature: 24
+
+- id: set_evening_temp
+  alias: Set evening temp
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    at: '21:00:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.away_mode
+    state: 'off'
+  action:
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.bedroom
         temperature: 21
     - service: climate.set_temperature
       data_template:
@@ -100,11 +130,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 20
+        temperature: 19
     - service: climate.set_temperature
       data_template:
         entity_id: climate.kitchen
-        temperature: 20
+        temperature: 19
 
 - id: reset_night_temp
   alias: Reset night temp
@@ -156,7 +186,7 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 20.5
+        temperature: 20
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
@@ -168,7 +198,7 @@
   hide_entity: true
   trigger:
     platform: time
-    at: '20:00:00'
+    at: '18:00:00'
   condition:
   - condition: and
     conditions:
@@ -182,15 +212,7 @@
   action:
     - service: climate.set_temperature
       data_template:
-        entity_id: climate.multireg_thermostat_heating
-        temperature: 27
-    - service: climate.set_temperature
-      data_template:
         entity_id: climate.livingroom
-        temperature: 21
-    - service: climate.set_temperature
-      data_template:
-        entity_id: climate.bedroom
         temperature: 21
 
 - id: water_yucca_alert

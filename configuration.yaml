@@ -124,7 +124,7 @@ mqtt:
   broker: !secret mqtt_broker
   username: !secret mqtt_username
   password: !secret mqtt_password
-  keepalive: 60
+  keepalive: 30
 
 #Device Tracker
 device_tracker:
