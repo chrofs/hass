@@ -84,7 +84,7 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 20
+        temperature: 18
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
@@ -105,7 +105,7 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 21
+        temperature: 18
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
@@ -151,7 +151,7 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 29
+        temperature: 25
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
@@ -190,7 +190,7 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 19
+        temperature: 18
 
 - id: reset_weekend_temp
   alias: Reset weekend temp
@@ -296,3 +296,60 @@
       data_template:
         entity_id: input_number.kitchen_energy_at_midnight
         value: "{{ states('sensor.fibaro_wall_plug_kitchen_energy')|float }}"
+
+- id: freeze_detection_livingroom
+  alias: freeze_detection_livingroom
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 00
+  condition:
+    condition: template
+    value_template: '{{ (as_timestamp(now())-as_timestamp(states.sensor.livingroom_temperature.last_updated)) > 1200 }}'
+  action:
+  - data:
+      message: Livingroom sensor frozen!
+    service: notify.ios_iphone
+  - data:
+      message: Livingroom sensor frozen!
+    service: persistent_notification.create
+
+- id: freeze_detection_bedroom
+  alias: freeze_detection_bedroom
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 00
+  condition:
+    condition: template
+    value_template: '{{ (as_timestamp(now())-as_timestamp(states.sensor.bedroom_temperature.last_updated)) > 1200 }}'
+  action:
+  - data:
+      message: Bedroom sensor frozen!
+    service: notify.ios_iphone
+  - data:
+      message: Bedroom sensor frozen!
+    service: persistent_notification.create
+
+- id: freeze_detection_kitchen
+  alias: freeze_detection_kitchen
+  initial_state: true
+  hide_entity: true
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 00
+  condition:
+    condition: template
+    value_template: '{{ (as_timestamp(now())-as_timestamp(states.sensor.kitchen_temperature.last_updated)) > 1200 }}'
+  action:
+  - data:
+      message: Kitchen sensor frozen!
+    service: notify.ios_iphone
+  - data:
+      message: Kitchen sensor frozen!
+    service: persistent_notification.create
