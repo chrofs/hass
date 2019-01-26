@@ -21,11 +21,11 @@
   action:
     - service: climate.set_temperature
       data:
-        temperature: 21
+        temperature: 19
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 27
+        temperature: 22
 
 - id: reduce_day_temp
   alias: Reduce day temp
@@ -33,7 +33,7 @@
   hide_entity: false
   trigger:
     platform: time
-    at: '07:00:00'
+    at: '06:30:00'
   condition:
   - condition: and
     conditions:
@@ -50,7 +50,7 @@
   action:
     service: climate.set_temperature
     data:
-      temperature: 19
+      temperature: 17
 
 - id: reset_day_temp
   alias: Reset day temp
@@ -58,7 +58,7 @@
   hide_entity: true
   trigger:
     platform: time
-    at: '16:00:00'
+    at: '15:00:00'
   condition:
   - condition: and
     conditions:
@@ -84,11 +84,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 18
+        temperature: 16
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 24
+        temperature: 20
 
 - id: set_evening_temp
   alias: Set evening temp
@@ -105,11 +105,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 18
+        temperature: 16
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 27
+        temperature: 22
 
 - id: reduce_night_temp
   alias: Reduce night temp
@@ -126,11 +126,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 19
+        temperature: 18
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 19
+        temperature: 17
     - service: climate.set_temperature
       data_template:
         entity_id: climate.kitchen
@@ -142,7 +142,7 @@
   hide_entity: true
   trigger:
     platform: time
-    at: '05:45:00'
+    at: '04:45:00'
   condition:
     condition: state
     entity_id: input_boolean.away_mode
@@ -155,11 +155,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 21
+        temperature: 18
     - service: climate.set_temperature
       data_template:
         entity_id: climate.kitchen
-        temperature: 21
+        temperature: 19
 
 - id: reduce_weekend_temp
   alias: Reduce weekend temp
@@ -182,15 +182,15 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.multireg_thermostat_heating
-        temperature: 19
+        temperature: 18
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 20
+        temperature: 19
     - service: climate.set_temperature
       data_template:
         entity_id: climate.bedroom
-        temperature: 18
+        temperature: 16
 
 - id: reset_weekend_temp
   alias: Reset weekend temp
@@ -213,7 +213,11 @@
     - service: climate.set_temperature
       data_template:
         entity_id: climate.livingroom
-        temperature: 21
+        temperature: 20
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.kitchen
+        temperature: 20
 
 - id: water_yucca_alert
   alias: Alarm me to water yucca palm
@@ -225,7 +229,7 @@
     platform: state
     to: home
   condition:
-  - below: '21'
+  - below: '15'
     condition: numeric_state
     entity_id: sensor.yucca_palm_moisture
   action:
@@ -246,7 +250,7 @@
     platform: state
     to: home
   condition:
-  - below: '18'
+  - below: '15'
     condition: numeric_state
     entity_id: sensor.succulent_moisture
   action:
@@ -255,6 +259,48 @@
     service: notify.ios_iphone
   - data:
       message: Water Succulent!
+    service: persistent_notification.create
+
+- id: water_monstera_alert
+  alias: Alarm me to water monstera
+  initial_state: true
+  hide_entity: true
+  trigger:
+  - entity_id: device_tracker.pi_iphone
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - below: '24'
+    condition: numeric_state
+    entity_id: sensor.monstera_moisture
+  action:
+  - data:
+      message: Water Monstera!
+    service: notify.ios_iphone
+  - data:
+      message: Water Monstera!
+    service: persistent_notification.create
+
+- id: water_money_alert
+  alias: Alarm me to water money tree
+  initial_state: true
+  hide_entity: true
+  trigger:
+  - entity_id: device_tracker.pi_iphone
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - below: '1'
+    condition: numeric_state
+    entity_id: sensor.money_tree_moisture
+  action:
+  - data:
+      message: Water Money Tree!
+    service: notify.ios_iphone
+  - data:
+      message: Water Money Tree!
     service: persistent_notification.create
 
 - id: change_brightness_ikea
@@ -296,6 +342,10 @@
       data_template:
         entity_id: input_number.kitchen_energy_at_midnight
         value: "{{ states('sensor.fibaro_wall_plug_kitchen_energy')|float }}"
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.livingroom_ceiling_energy_at_midnight
+        value: "{{ states('sensor.fibaro_dimmer_livingroom_energy')|float }}"
 
 - id: freeze_detection_livingroom
   alias: freeze_detection_livingroom
@@ -303,7 +353,7 @@
   hide_entity: true
   trigger:
     platform: time
-    minutes: '/5'
+    minutes: '/30'
     seconds: 00
   condition:
     condition: template
@@ -322,7 +372,7 @@
   hide_entity: true
   trigger:
     platform: time
-    minutes: '/5'
+    minutes: '/30'
     seconds: 00
   condition:
     condition: template
@@ -341,7 +391,7 @@
   hide_entity: true
   trigger:
     platform: time
-    minutes: '/5'
+    minutes: '/30'
     seconds: 00
   condition:
     condition: template

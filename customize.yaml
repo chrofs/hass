@@ -63,6 +63,22 @@ sensor.succulent_conductivity:
   icon: mdi:magnet
 sensor.succulent_battery:
   icon: mdi:battery
+sensor.monstera_moisture:
+  icon: mdi:water-percent
+sensor.monstera_light_intensity:
+  icon: mdi:white-balance-sunny
+sensor.monstera_conductivity:
+  icon: mdi:magnet
+sensor.monstera_battery:
+  icon: mdi:battery
+sensor.money_tree_moisture:
+  icon: mdi:water-percent
+sensor.money_tree_light_intensity:
+  icon: mdi:white-balance-sunny
+sensor.money_tree_conductivity:
+  icon: mdi:magnet
+sensor.money_tree_battery:
+  icon: mdi:battery
 light.tradfri_bulb_e27_ws_opal_980lm_2:
   friendly_name: Upward lamp
 light.tradfri_bulb_e27_ws_opal_980lm:
@@ -103,6 +119,9 @@ sensor.current_power_consumption:
 sensor.daily_livingroom_power_consumption:
   friendly_name: Daily livingroom energy
   icon: mdi:chart-bar
+sensor.daily_livingroom_ceiling_power_consumption:
+  friendly_name: Daily livingroom ceiling energy
+  icon: mdi:chart-bar
 sensor.daily_bedroom_power_consumption:
   friendly_name: Daily bedroom energy
   icon: mdi:chart-bar
@@ -117,4 +136,12 @@ input_number.bedroom_energy_at_midnight:
 input_number.kitchen_energy_at_midnight:
   hidden: true
 input_number.livingroom_energy_at_midnight:
+  hidden: true
+input_number.livingroom_ceiling_energy_at_midnight:
+  hidden: true
+sensor.fibaro_dimmer_livingroom_power:
+  icon: mdi:gauge
+sensor.fibaro_dimmer_livingroom_energy:
+  icon: mdi:chart-bar
+remote.apple_tv:
   hidden: true

@@ -10,3 +10,4 @@
 www/custom_ui/.gitignore
 secrets.yaml
 entity_registry.yaml
+ip_bans.yaml

@@ -10,7 +10,6 @@ environment_view:
    - group.bedroom_environment
    - group.bathroom_environment
    - group.away_mode_group
-   - group.power_group
 all_temp:
   entities:
    - climate.livingroom
@@ -59,6 +58,7 @@ power_group:
     - sensor.daily_livingroom_power_consumption
     - sensor.daily_bedroom_power_consumption
     - sensor.daily_kitchen_power_consumption
+    - sensor.daily_livingroom_ceiling_power_consumption
     - sensor.daily_total_power_consumption
 
 #Lights
@@ -68,12 +68,19 @@ light_view:
   name: Lights
   entities:
     - group.ikea_lights
+    - group.livinroom_ceiling
     #- group.brightness_group
 ikea_lights:
   name: Oslo Lamp
   entities:
     - light.tradfri_bulb_e27_ws_opal_980lm_2
     - light.tradfri_bulb_e27_ws_opal_980lm
+livinroom_ceiling:
+  name: Ceiling Lamp
+  entities:
+    - light.fibaro_dimmer_level_livingroom
+    - sensor.fibaro_dimmer_livingroom_power
+    - sensor.fibaro_dimmer_livingroom_energy
 #brightness_group:
 #  name: Brightness
 #  entities:
@@ -87,11 +94,16 @@ tv_view:
   name: Media
   entities:
    - group.tv_remote
+   - group.apple_tv_remote
    #- group.spotify
 tv_remote:
   name: TV
   entities:
    - media_player.TV
+apple_tv_remote:
+  name: Apple TV
+  entities:
+   - media_player.apple_tv
 #spotify:
 #  name: Spotify
 #  entities:
@@ -105,6 +117,8 @@ flower_view:
   entities:
    - group.yucca_palm
    - group.succulent
+   - group.monstera
+   - group.money_tree
 yucca_palm:
   name: Yucca Palm
   entities:
@@ -121,6 +135,22 @@ succulent:
    - sensor.succulent_temperature
    - sensor.succulent_conductivity
    - sensor.succulent_battery
+monstera:
+  name: Monstera
+  entities:
+   - sensor.monstera_moisture
+   - sensor.monstera_light_intensity
+   - sensor.monstera_temperature
+   - sensor.monstera_conductivity
+   - sensor.monstera_battery
+money_tree:
+  name: Money Tree
+  entities:
+   - sensor.money_tree_moisture
+   - sensor.money_tree_light_intensity
+   - sensor.money_tree_temperature
+   - sensor.money_tree_conductivity
+   - sensor.money_tree_battery
 
 #Vacuum
 vacuum_view:
@@ -146,6 +176,7 @@ monitor_view:
   name: Monitor
   entities:
     - group.sensor_pi
+    - group.power_group
 sensor_pi:
   name: Server
   entities:
@@ -153,7 +184,7 @@ sensor_pi:
     - sensor.memory_use_percent
     - sensor.disk_use_percent_home
     - sensor.hass_db_size
-    - sensor.since_last_boot
+    - sensor.last_boot
     - sensor.home_assistant_uptime
     - sensor.network_in_eth0
     - sensor.network_out_eth0

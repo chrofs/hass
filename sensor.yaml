@@ -60,6 +60,30 @@
     - conductivity
     - battery
 
+- platform: miflora
+  mac: !secret miflora_mac_monstera
+  name: "Monstera"
+  force_update: true
+  median: 3
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery
+
+- platform: miflora
+  mac: !secret miflora_mac_money
+  name: "Money Tree"
+  force_update: true
+  median: 3
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery
+
 #System Monitor
 - platform: systemmonitor
   resources:
@@ -67,7 +91,7 @@
       arg: /home
     - type: memory_use_percent
     - type: processor_use
-    - type: since_last_boot
+    - type: last_boot
     - type: network_in
       arg: eth0
     - type: network_out
@@ -126,7 +150,7 @@
 - platform: template
   sensors:
     current_power_consumption:
-      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_power")|int + states("sensor.fibaro_wall_plug_bedroom_power")|int + states("sensor.fibaro_wall_plug_kitchen_power")|int }}'
+      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_power")|int + states("sensor.fibaro_wall_plug_bedroom_power")|int + states("sensor.fibaro_wall_plug_kitchen_power")|int + states("sensor.fibaro_dimmer_livingroom_power")|int }}'
       friendly_name: 'Current power consumption'
       unit_of_measurement: W
 #- platform: template
@@ -162,4 +186,9 @@
   sensors:
     daily_total_power_consumption:
       value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float + states('sensor.daily_bedroom_power_consumption')|float + states('sensor.daily_kitchen_power_consumption')|float) | round(1) }}"
+      unit_of_measurement: kWh
+- platform: template
+  sensors:
+    daily_livingroom_ceiling_power_consumption:
+      value_template: "{{ (states('sensor.fibaro_dimmer_livingroom_energy')|float - states('input_number.livingroom_ceiling_energy_at_midnight')|float) | round(1) }}"
       unit_of_measurement: kWh
