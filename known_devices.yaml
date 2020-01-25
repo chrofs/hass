@@ -6,11 +6,3 @@ pi_iphone:
   picture:
   track: true
   vendor:
-
-iphone:
-  hide_if_away: false
-  mac:
-  name: iPhone_hass_app
-  picture:
-  track: false
-  vendor:

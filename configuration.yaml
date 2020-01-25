@@ -12,13 +12,22 @@ homeassistant:
   time_zone: !secret time_zone
 
   customize: !include customize.yaml
+
+  # Allow iPhone to gain access
+  auth_providers:
+      - type: homeassistant
+      - type: trusted_networks
+
 # Show links to resources in log and frontend
+
+system_health:
 
 # Enables the frontend
 frontend:
-  javascript_version: es5
 
 map:
+
+person:
 
 recorder:
   purge_interval: 1
@@ -64,8 +73,6 @@ http:
   #base_url: !secret base_url
   ip_ban_enabled: True
   login_attempts_threshold: 2
-  trusted_networks:
-    - 84.212.203.140
 
 # Checks for available updates
 updater:
@@ -73,7 +80,7 @@ updater:
 
 # Discover some devices automatically
 discovery:
-
+zeroconf:
 # Allows you to issue voice commands from the frontend in enabled browsers
 #conversation:
 
@@ -156,8 +163,7 @@ mqtt:
   keepalive: 30
 
 #Device Tracker
-device_tracker:
-  - platform: owntracks
+owntracks:
 
 zone:
   - name: Work
@@ -188,7 +194,8 @@ media_player:
 
 #IOS app
 ios:
-
+mobile_app:
+cloud:
 #Notifier
 #notify:
 #  - platform: ios
@@ -234,6 +241,7 @@ logger:
     # Hide vacuum connecion errors which happen sometimes:
     homeassistant.components.vacuum: error
     miio.device: critical
+    miflora: error
 
 device_sun_light_trigger:
   light_group: group.ikea_lights
