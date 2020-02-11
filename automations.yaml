@@ -1,6 +1,5 @@
 - id: away_mode_on
   alias: Away mode on
-  hide_entity: true
   trigger:
     platform: state
     entity_id: input_boolean.away_mode
@@ -21,11 +20,10 @@
       temperature: 10
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 10
 - id: away_mode_off
   alias: Away mode off
-  hide_entity: true
   trigger:
     platform: state
     entity_id: input_boolean.away_mode
@@ -46,12 +44,11 @@
       temperature: 19
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 22
 - id: reduce_day_temp
   alias: Reduce day temp
   initial_state: true
-  hide_entity: false
   trigger:
     platform: time
     at: 06:30:00
@@ -83,12 +80,11 @@
       temperature: 17
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 17
 - id: reset_day_temp
   alias: Reset day temp
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time
     at: '15:00:00'
@@ -120,12 +116,11 @@
       temperature: 16
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 20
 - id: set_evening_temp
   alias: Set evening temp
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time
     at: '20:00:00'
@@ -140,7 +135,7 @@
       temperature: 16
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 22
 - id: reduce_night_temp
   alias: Reduce night temp
@@ -153,7 +148,7 @@
     state: 'off'
   action:
   - data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 18
     service: climate.set_temperature
   - data_template:
@@ -165,11 +160,9 @@
       temperature: 19
     service: climate.set_temperature
   initial_state: true
-  hide_entity: false
 - id: reset_night_temp
   alias: Reset night temp
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time
     at: 04:45:00
@@ -180,7 +173,7 @@
   action:
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 25
   - service: climate.set_temperature
     data_template:
@@ -193,7 +186,6 @@
 - id: reduce_weekend_temp
   alias: Reduce weekend temp
   initial_state: true
-  hide_entity: false
   trigger:
     platform: time
     at: 09:00:00
@@ -210,7 +202,7 @@
   action:
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.multireg_thermostat_heating
+      entity_id: climate.multireg_thermostat_mode
       temperature: 18
   - service: climate.set_temperature
     data_template:
@@ -223,7 +215,6 @@
 - id: reset_weekend_temp
   alias: Reset weekend temp
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time
     at: '18:00:00'
@@ -265,7 +256,6 @@
       message: Water Yucca Palm!
     service: persistent_notification.create
   initial_state: true
-  hide_entity: true
 - id: water_succulent_alert
   alias: Alarm me to water succulent
   trigger:
@@ -285,7 +275,6 @@
       message: Water Succulent!
     service: persistent_notification.create
   initial_state: true
-  hide_entity: true
 - id: water_monstera_alert
   alias: Alarm me to water monstera
   trigger:
@@ -305,7 +294,6 @@
       message: Water Monstera!
     service: persistent_notification.create
   initial_state: true
-  hide_entity: true
 - id: water_money_alert
   alias: Alarm me to water money tree
   trigger:
@@ -325,29 +313,9 @@
       message: Water Money Tree!
     service: persistent_notification.create
   initial_state: true
-  hide_entity: true
-- id: change_brightness_ikea
-  alias: Change Brightness
-  initial_state: false
-  hide_entity: true
-  trigger:
-  - platform: state
-    entity_id: input_slider.lamp_bright
-  - platform: state
-    entity_id: input_slider.lamp_temp
-  action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tradfri_bulb_e27_ws_opal_980lm_2
-      brightness: '{{ states.input_slider.lamp_bright.state | int }}'
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tradfri_bulb_e27_ws_opal_980lm_2
-      color_temp: '{{ states.input_slider.lamp_temp.state | int }}'
 - id: store_meter_readings_at_midnight
   alias: store_livingroom_energy_at_midnight
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time
     at: 00:00:00
@@ -371,7 +339,6 @@
 - id: freeze_detection_livingroom
   alias: freeze_detection_livingroom
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time_pattern
     minutes: /30
@@ -390,7 +357,6 @@
 - id: freeze_detection_bedroom
   alias: freeze_detection_bedroom
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time_pattern
     minutes: /30
@@ -409,7 +375,6 @@
 - id: freeze_detection_kitchen
   alias: freeze_detection_kitchen
   initial_state: true
-  hide_entity: true
   trigger:
     platform: time_pattern
     minutes: /30

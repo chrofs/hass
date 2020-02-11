@@ -245,7 +245,7 @@ logger:
 
 device_sun_light_trigger:
   light_group: group.ikea_lights
-  device_group: group.all_devices
+  device_group: group.my_devices
   disable_turn_off: 0
 
 homekit:

@@ -1,7 +1,6 @@
 ##############groups.yaml#################
 #Environment
 environment_view:
-  view: yes
   icon: mdi:radiator
   name: Climate
   entities:
@@ -63,7 +62,6 @@ power_group:
 
 #Lights
 light_view:
-  view: yes
   icon: mdi:lightbulb-on
   name: Lights
   entities:
@@ -89,7 +87,6 @@ livinroom_ceiling:
 
 #LG TV
 tv_view:
-  view: yes
   icon: mdi:television
   name: Media
   entities:
@@ -111,7 +108,6 @@ apple_tv_remote:
 
 # Flowers
 flower_view:
-  view: yes
   icon: mdi:flower
   name: Flower
   entities:
@@ -154,7 +150,6 @@ money_tree:
 
 #Vacuum
 vacuum_view:
-  view: yes
   icon: mdi:robot-vacuum
   name: Vacuum
   entities:
@@ -171,7 +166,6 @@ vacuum:
 
 #System monitor
 monitor_view:
-  view: yes
   icon: mdi:chip
   name: Monitor
   entities:
@@ -193,4 +187,4 @@ sensor_pi:
 my_devices:
   name: iPhone
   entities:
-    - device_tracker.pi_iphone
+    - device_tracker.pi_iphone_2
