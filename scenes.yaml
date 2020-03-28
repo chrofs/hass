@@ -1,0 +1,25 @@
+- id: '1582377217242'
+  name: Dinner
+  entities:
+    light.fibaro_dimmer_level_livingroom:
+      brightness: 31
+      friendly_name: Livingroom ceiling lamp
+      node_id: 6
+      power_consumption: 5.3
+      state: 'on'
+      supported_features: 33
+      value_id: '72057594143408129'
+      value_index: 0
+      value_instance: 1
+    light.tradfri_bulb_e27_ws_opal_980lm:
+      friendly_name: Sideways lamp
+      max_mireds: 454
+      min_mireds: 250
+      state: 'off'
+      supported_features: 35
+    light.tradfri_bulb_e27_ws_opal_980lm_2:
+      friendly_name: Upward lamp
+      max_mireds: 454
+      min_mireds: 250
+      state: 'off'
+      supported_features: 35

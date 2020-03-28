@@ -1,9 +1,10 @@
 switch.fibaro_wall_plug_livingroom_switch:
   friendly_name: Livingroom radiator
   icon: mdi:radiator
+  state_color: 'true'
 switch.fibaro_wall_plug_kitchen_switch:
-  friendly_name: Kitchen radiator
-  icon: mdi:radiator
+  friendly_name: Dishwasher switch
+  icon: mdi:dishwasher
 switch.fibaro_wall_plug_bedroom_switch:
   friendly_name: Bedroom radiator
   icon: mdi:radiator
@@ -11,7 +12,7 @@ sensor.fibaro_wall_plug_livingroom_power:
   friendly_name: Livingroom radiator power
   icon: mdi:gauge
 sensor.fibaro_wall_plug_kitchen_power:
-  friendly_name: Kitchen radiator power
+  friendly_name: Dishwasher power
   icon: mdi:gauge
 sensor.fibaro_wall_plug_bedroom_power:
   friendly_name: Bedroom radiator power
@@ -20,7 +21,7 @@ sensor.fibaro_wall_plug_livingroom_energy:
   friendly_name: Livingroom radiator energy
   icon: mdi:chart-bar
 sensor.fibaro_wall_plug_kitchen_energy:
-  friendly_name: Kitchen radiator energy
+  friendly_name: Dishwasher energy
   icon: mdi:chart-bar
 sensor.fibaro_wall_plug_bedroom_energy:
   friendly_name: Bedroom radiator energy
@@ -28,7 +29,7 @@ sensor.fibaro_wall_plug_bedroom_energy:
 zwave.fibaro_wall_plug_livingroom:
   friendly_name: Fibaro Wall Plug Livingroom
 zwave.fibaro_wall_plug_kitchen:
-  friendly_name: Fibaro Wall Plug Kitchen
+  friendly_name: Fibaro Wall Plug Dishwasher
 zwave.fibaro_wall_plug_bedroom:
   friendly_name: Fibaro Wall Plug Bedroom
 sensor.livingroom_humidity:
@@ -104,7 +105,7 @@ sensor.daily_bedroom_power_consumption:
   friendly_name: Daily bedroom energy
   icon: mdi:chart-bar
 sensor.daily_kitchen_power_consumption:
-  friendly_name: Daily kitchen energy
+  friendly_name: Daily dishwasher energy
   icon: mdi:chart-bar
 sensor.daily_total_power_consumption:
   friendly_name: Daily total energy
@@ -113,3 +114,5 @@ sensor.fibaro_dimmer_livingroom_power:
   icon: mdi:gauge
 sensor.fibaro_dimmer_livingroom_energy:
   icon: mdi:chart-bar
+sensor.dishwasher_status:
+  icon: mdi:dishwasher

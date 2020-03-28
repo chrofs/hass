@@ -160,7 +160,7 @@ mqtt:
   broker: !secret mqtt_broker
   username: !secret mqtt_username
   password: !secret mqtt_password
-  keepalive: 30
+  keepalive: 20
 
 #Device Tracker
 owntracks:
@@ -214,10 +214,13 @@ automation: !include automations.yaml
 # Inputs
 input_boolean: !include inputs/input_boolean.yaml
 input_number: !include inputs/input_number.yaml
+input_select: !include inputs/input_select.yaml
 #input_slider: !include inputs/input_slider.yaml
 
 #Configuration page
 config:
+
+scene: !include scenes.yaml
 
 # zwave
 zwave:
@@ -265,19 +268,19 @@ climate:
       seconds: 5
     keep_alive:
       minutes: 3
-  - platform: generic_thermostat
-    name: Kitchen
-    heater: switch.fibaro_wall_plug_kitchen_switch
-    target_sensor: sensor.kitchen_temperature
-    target_temp: 18
-    min_temp: 15
-    max_temp: 25
-    cold_tolerance: 0.1
-    hot_tolerance: 0.1
-    min_cycle_duration:
-      seconds: 5
-    keep_alive:
-      minutes: 3
+#  - platform: generic_thermostat
+#    name: Kitchen
+#    heater: switch.fibaro_wall_plug_kitchen_switch
+#    target_sensor: sensor.kitchen_temperature
+#    target_temp: 18
+#    min_temp: 15
+#    max_temp: 25
+#    cold_tolerance: 0.1
+#    hot_tolerance: 0.1
+#    min_cycle_duration:
+#      seconds: 5
+#    keep_alive:
+#      minutes: 3
   - platform: generic_thermostat
     name: Bedroom
     heater: switch.fibaro_wall_plug_bedroom_switch

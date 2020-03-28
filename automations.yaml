@@ -12,10 +12,6 @@
       temperature: 10
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.kitchen
-      temperature: 10
-  - service: climate.set_temperature
-    data_template:
       entity_id: climate.bedroom
       temperature: 10
   - service: climate.set_temperature
@@ -33,10 +29,6 @@
   - service: climate.set_temperature
     data_template:
       entity_id: climate.livingroom
-      temperature: 19
-  - service: climate.set_temperature
-    data_template:
-      entity_id: climate.kitchen
       temperature: 19
   - service: climate.set_temperature
     data_template:
@@ -72,10 +64,6 @@
       temperature: 17
   - service: climate.set_temperature
     data_template:
-      entity_id: climate.kitchen
-      temperature: 17
-  - service: climate.set_temperature
-    data_template:
       entity_id: climate.bedroom
       temperature: 17
   - service: climate.set_temperature
@@ -105,10 +93,6 @@
   - service: climate.set_temperature
     data_template:
       entity_id: climate.livingroom
-      temperature: 21
-  - service: climate.set_temperature
-    data_template:
-      entity_id: climate.kitchen
       temperature: 21
   - service: climate.set_temperature
     data_template:
@@ -155,10 +139,6 @@
       entity_id: climate.livingroom
       temperature: 17
     service: climate.set_temperature
-  - data_template:
-      entity_id: climate.kitchen
-      temperature: 19
-    service: climate.set_temperature
   initial_state: true
 - id: reset_night_temp
   alias: Reset night temp
@@ -179,10 +159,6 @@
     data_template:
       entity_id: climate.livingroom
       temperature: 18
-  - service: climate.set_temperature
-    data_template:
-      entity_id: climate.kitchen
-      temperature: 19
 - id: reduce_weekend_temp
   alias: Reduce weekend temp
   initial_state: true
@@ -233,10 +209,6 @@
     data_template:
       entity_id: climate.livingroom
       temperature: 20
-  - service: climate.set_temperature
-    data_template:
-      entity_id: climate.kitchen
-      temperature: 20
 - id: water_yucca_alert
   alias: Alarm me to water yucca palm
   trigger:
@@ -252,9 +224,6 @@
   - data:
       message: Water Yucca Palm!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Water Yucca Palm!
-    service: persistent_notification.create
   initial_state: true
 - id: water_succulent_alert
   alias: Alarm me to water succulent
@@ -271,9 +240,6 @@
   - data:
       message: Water Succulent!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Water Succulent!
-    service: persistent_notification.create
   initial_state: true
 - id: water_monstera_alert
   alias: Alarm me to water monstera
@@ -290,9 +256,6 @@
   - data:
       message: Water Monstera!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Water Monstera!
-    service: persistent_notification.create
   initial_state: true
 - id: water_money_alert
   alias: Alarm me to water money tree
@@ -309,9 +272,6 @@
   - data:
       message: Water Money Tree!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Water Money Tree!
-    service: persistent_notification.create
   initial_state: true
 - id: store_meter_readings_at_midnight
   alias: store_livingroom_energy_at_midnight
@@ -351,9 +311,6 @@
   - data:
       message: Livingroom sensor frozen!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Livingroom sensor frozen!
-    service: persistent_notification.create
 - id: freeze_detection_bedroom
   alias: freeze_detection_bedroom
   initial_state: true
@@ -369,12 +326,9 @@
   - data:
       message: Bedroom sensor frozen!
     service: notify.mobile_app_c_iphone
-  - data:
-      message: Bedroom sensor frozen!
-    service: persistent_notification.create
 - id: freeze_detection_kitchen
   alias: freeze_detection_kitchen
-  initial_state: true
+  initial_state: false
   trigger:
     platform: time_pattern
     minutes: /30
@@ -387,6 +341,99 @@
   - data:
       message: Kitchen sensor frozen!
     service: notify.mobile_app_c_iphone
+- id: Set_dishwasher_active
+  alias: Set dishwasher active when power detected
+  trigger:
+  - above: '18'
+    entity_id: sensor.fibaro_wall_plug_kitchen_power
+    platform: numeric_state
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Dirty
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Clean
+  action:
   - data:
-      message: Kitchen sensor frozen!
+      entity_id: input_select.dishwasher_status
+      option: Running
+    service: input_select.select_option
+- id: Set_dishwasher_clean
+  alias: Set dishwasher clean
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.fibaro_wall_plug_kitchen_power
+    below: 1
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Running
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_status
+      option: Clean
+- id: Set_dishwasher_dirty
+  alias: Set Dishwasher dirty when power off
+  trigger:
+  - platform: state
+    entity_id: input_select.dishwasher_status
+    to: Clean
+    for:
+      minutes: 15
+  condition:
+    condition: and
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.fibaro_wall_plug_kitchen_power
+      below: 1
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Clean
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_status
+      option: Dirty
+- id: dishwasher_alert
+  alias: Send alert when dishwasher is clean
+  trigger:
+  - platform: state
+    entity_id: input_select.dishwasher_status
+    to: Clean
+  - platform: time
+    at: 07:00:00
+  - platform: state
+    entity_id: device_tracker.pi_iphone_2
+    to: Home
+    for:
+      minutes: 10
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      before: '23:00:00'
+      after: 07:00:00
+    - condition: state
+      entity_id: device_tracker.pi_iphone_2
+      state: home
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Clean
+    - condition: template
+      value_template: "{% if states.automation.send_alert_when_dishwasher_is_clean.last_triggered\
+        \ is not none %}\n  {% if as_timestamp(now()) | int   -  as_timestamp(states.automation.send_alert_when_dishwasher_is_clean.attributes.last_triggered)\
+        \ | int > 3600 %} true {% else %} false\n  {% endif %}\n{% else %} false {%\
+        \ endif %}\n"
+  action:
+  - data:
+      message: Empty Dishwasher!
+    service: notify.mobile_app_c_iphone
+  - data:
+      message: Empty Dishwasher!
     service: persistent_notification.create

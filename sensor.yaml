@@ -185,7 +185,7 @@
 - platform: template
   sensors:
     daily_total_power_consumption:
-      value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float + states('sensor.daily_bedroom_power_consumption')|float + states('sensor.daily_kitchen_power_consumption')|float) | round(1) }}"
+      value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float + states('sensor.daily_bedroom_power_consumption')|float + states('sensor.daily_kitchen_power_consumption')|float + states('sensor.daily_livingroom_ceiling_power_consumption')|float) | round(1) }}"
       unit_of_measurement: kWh
 - platform: template
   sensors:

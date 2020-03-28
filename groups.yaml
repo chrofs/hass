@@ -12,7 +12,6 @@ environment_view:
 all_temp:
   entities:
    - climate.livingroom
-   - climate.kitchen
    - climate.bedroom
 livingroom_environment:
   name: Livingroom
@@ -31,7 +30,6 @@ kitchen_environment:
    - switch.fibaro_wall_plug_kitchen_switch
    - sensor.fibaro_wall_plug_kitchen_power
    - sensor.fibaro_wall_plug_kitchen_energy
-   - climate.kitchen
 bedroom_environment:
   name: Bedroom
   entities:
