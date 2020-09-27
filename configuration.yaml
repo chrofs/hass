@@ -16,7 +16,7 @@ homeassistant:
   # Allow iPhone to gain access
   auth_providers:
       - type: homeassistant
-      - type: trusted_networks
+  #    - type: trusted_networks
 
 # Show links to resources in log and frontend
 
@@ -30,7 +30,6 @@ map:
 person:
 
 recorder:
-  purge_interval: 1
   purge_keep_days: 2
   db_url: !secret db_url
   exclude:
@@ -42,7 +41,6 @@ recorder:
      - sun.sun
      - sensor.last_boot
      - sensor.date
-     - sensor.yr_symbol
      - sensor.since_last_boot
      - zwave.aeotec_zw090_zstick_gen5_eu
      - zwave.fibaro_wall_plug_livingroom
@@ -95,7 +93,6 @@ history:
      - sun.sun
      - sensor.last_boot
      - sensor.date
-     - sensor.yr_symbol
      - sensor.since_last_boot
      - zwave.aeotec_zw090_zstick_gen5_eu
      - zwave.fibaro_wall_plug_livingroom
@@ -127,7 +124,6 @@ logbook:
      - sun.sun
      - sensor.last_boot
      - sensor.date
-     - sensor.yr_symbol
      - sensor.since_last_boot
      - zwave.aeotec_zw090_zstick_gen5_eu
      - zwave.fibaro_wall_plug_livingroom

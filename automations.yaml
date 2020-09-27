@@ -341,6 +341,7 @@
   - data:
       message: Kitchen sensor frozen!
     service: notify.mobile_app_c_iphone
+
 - id: Set_dishwasher_active
   alias: Set dishwasher active when power detected
   trigger:
@@ -361,6 +362,7 @@
       entity_id: input_select.dishwasher_status
       option: Running
     service: input_select.select_option
+
 - id: Set_dishwasher_clean
   alias: Set dishwasher clean
   trigger:
@@ -378,58 +380,64 @@
     data:
       entity_id: input_select.dishwasher_status
       option: Clean
+
 - id: Set_dishwasher_dirty
   alias: Set Dishwasher dirty when power off
   trigger:
-  - platform: state
-    entity_id: input_select.dishwasher_status
+  - entity_id: input_select.dishwasher_status
+    platform: state
     to: Clean
-    for:
-      minutes: 15
+  - entity_id: device_tracker.pi_iphone_2
+    for: 0:15:00
+    platform: state
+    to: Home
   condition:
-    condition: and
+  - condition: and
     conditions:
-    - condition: numeric_state
+    - below: '1'
+      condition: numeric_state
       entity_id: sensor.fibaro_wall_plug_kitchen_power
-      below: 1
     - condition: state
       entity_id: input_select.dishwasher_status
       state: Clean
+    - condition: state
+      entity_id: device_tracker.pi_iphone_2
+      state: Home
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.dishwasher_status
       option: Dirty
+    service: input_select.select_option
+
 - id: dishwasher_alert
   alias: Send alert when dishwasher is clean
   trigger:
-  - platform: state
-    entity_id: input_select.dishwasher_status
+  - entity_id: input_select.dishwasher_status
+    platform: state
     to: Clean
-  - platform: time
-    at: 07:00:00
-  - platform: state
-    entity_id: device_tracker.pi_iphone_2
+  - at: 07:00:00
+    platform: time
+  - entity_id: device_tracker.pi_iphone_2
+    for: 0:10:00
+    platform: state
     to: Home
-    for:
-      minutes: 10
   condition:
-    condition: and
+  - condition: and
     conditions:
-    - condition: time
+    - after: 07:00:00
       before: '23:00:00'
-      after: 07:00:00
+      condition: time
     - condition: state
       entity_id: device_tracker.pi_iphone_2
       state: home
-    - condition: state
-      entity_id: input_select.dishwasher_status
-      state: Clean
     - condition: template
       value_template: "{% if states.automation.send_alert_when_dishwasher_is_clean.last_triggered\
         \ is not none %}\n  {% if as_timestamp(now()) | int   -  as_timestamp(states.automation.send_alert_when_dishwasher_is_clean.attributes.last_triggered)\
-        \ | int > 3600 %} true {% else %} false\n  {% endif %}\n{% else %} false {%\
+        \ | int > 1800 %} true {% else %} false\n  {% endif %}\n{% else %} false {%\
         \ endif %}\n"
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: Clean
   action:
   - data:
       message: Empty Dishwasher!

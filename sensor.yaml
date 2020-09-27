@@ -1,8 +1,4 @@
 # Weather Prediction
-- platform: yr
-  monitored_conditions:
-    - temperature
-    - symbol
 
 # NodeMCU sensors
 - platform: mqtt
