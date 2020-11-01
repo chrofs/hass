@@ -290,3 +290,15 @@ climate:
       seconds: 5
     keep_alive:
       minutes: 3
+
+alert:
+  dishwasher:
+    name: Open dishwasher
+    done_message: Dishwasher is open
+    entity_id: input_select.dishwasher_status
+    state: 'Closed'
+    repeat: 5
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - mobile_app_c_iphone

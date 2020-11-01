@@ -116,3 +116,5 @@ sensor.fibaro_dimmer_livingroom_energy:
   icon: mdi:chart-bar
 sensor.dishwasher_status:
   icon: mdi:dishwasher
+zone.pi_iphone_here_1603397197_test:
+  tracking: 'false'

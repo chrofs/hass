@@ -39,10 +39,9 @@
       entity_id: climate.multireg_thermostat_mode
       temperature: 22
 - id: reduce_day_temp
-  alias: Reduce day temp
-  initial_state: true
+  alias: Increase day temp
   trigger:
-    platform: time
+  - platform: time
     at: 06:30:00
   condition:
   - condition: and
@@ -61,7 +60,7 @@
   - service: climate.set_temperature
     data_template:
       entity_id: climate.livingroom
-      temperature: 17
+      temperature: 21
   - service: climate.set_temperature
     data_template:
       entity_id: climate.bedroom
@@ -70,6 +69,8 @@
     data_template:
       entity_id: climate.multireg_thermostat_mode
       temperature: 17
+  initial_state: true
+  mode: single
 - id: reset_day_temp
   alias: Reset day temp
   initial_state: true
@@ -212,7 +213,7 @@
 - id: water_yucca_alert
   alias: Alarm me to water yucca palm
   trigger:
-  - entity_id: device_tracker.pi_iphone_2
+  - entity_id: device_tracker.c_iphone_3
     from: not_home
     platform: state
     to: home
@@ -225,10 +226,11 @@
       message: Water Yucca Palm!
     service: notify.mobile_app_c_iphone
   initial_state: true
+  mode: single
 - id: water_succulent_alert
   alias: Alarm me to water succulent
   trigger:
-  - entity_id: device_tracker.pi_iphone_2
+  - entity_id: device_tracker.c_iphone_3
     from: not_home
     platform: state
     to: home
@@ -241,10 +243,11 @@
       message: Water Succulent!
     service: notify.mobile_app_c_iphone
   initial_state: true
+  mode: single
 - id: water_monstera_alert
   alias: Alarm me to water monstera
   trigger:
-  - entity_id: device_tracker.pi_iphone_2
+  - entity_id: device_tracker.c_iphone_3
     from: not_home
     platform: state
     to: home
@@ -257,10 +260,11 @@
       message: Water Monstera!
     service: notify.mobile_app_c_iphone
   initial_state: true
+  mode: single
 - id: water_money_alert
   alias: Alarm me to water money tree
   trigger:
-  - entity_id: device_tracker.pi_iphone_2
+  - entity_id: device_tracker.c_iphone_3
     from: not_home
     platform: state
     to: home
@@ -273,6 +277,7 @@
       message: Water Money Tree!
     service: notify.mobile_app_c_iphone
   initial_state: true
+  mode: single
 - id: store_meter_readings_at_midnight
   alias: store_livingroom_energy_at_midnight
   initial_state: true
@@ -341,7 +346,6 @@
   - data:
       message: Kitchen sensor frozen!
     service: notify.mobile_app_c_iphone
-
 - id: Set_dishwasher_active
   alias: Set dishwasher active when power detected
   trigger:
@@ -362,7 +366,6 @@
       entity_id: input_select.dishwasher_status
       option: Running
     service: input_select.select_option
-
 - id: Set_dishwasher_clean
   alias: Set dishwasher clean
   trigger:
@@ -380,17 +383,18 @@
     data:
       entity_id: input_select.dishwasher_status
       option: Clean
-
 - id: Set_dishwasher_dirty
   alias: Set Dishwasher dirty when power off
+  initial_state: false
   trigger:
   - entity_id: input_select.dishwasher_status
     platform: state
     to: Clean
-  - entity_id: device_tracker.pi_iphone_2
+    for: 00:00:05
+  - entity_id: device_tracker.c_iphone_3
     for: 0:15:00
     platform: state
-    to: Home
+    to: home
   condition:
   - condition: and
     conditions:
@@ -401,14 +405,14 @@
       entity_id: input_select.dishwasher_status
       state: Clean
     - condition: state
-      entity_id: device_tracker.pi_iphone_2
-      state: Home
+      entity_id: device_tracker.c_iphone_3
+      state: home
   action:
   - data:
       entity_id: input_select.dishwasher_status
       option: Dirty
     service: input_select.select_option
-
+  mode: single
 - id: dishwasher_alert
   alias: Send alert when dishwasher is clean
   trigger:
@@ -417,10 +421,10 @@
     to: Clean
   - at: 07:00:00
     platform: time
-  - entity_id: device_tracker.pi_iphone_2
+  - entity_id: device_tracker.c_iphone_3
     for: 0:10:00
     platform: state
-    to: Home
+    to: home
   condition:
   - condition: and
     conditions:
@@ -428,7 +432,7 @@
       before: '23:00:00'
       condition: time
     - condition: state
-      entity_id: device_tracker.pi_iphone_2
+      entity_id: device_tracker.c_iphone_3
       state: home
     - condition: template
       value_template: "{% if states.automation.send_alert_when_dishwasher_is_clean.last_triggered\
@@ -445,3 +449,31 @@
   - data:
       message: Empty Dishwasher!
     service: persistent_notification.create
+  - data:
+      entity_id: input_select.dishwasher_status
+      option: Closed
+    service: input_select.select_option
+  mode: single
+- id: '1602090292559'
+  alias: Alarm me if RPi power supply is not ok
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.rpi_power_status
+    to: 'on'
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: device_tracker.c_iphone_3
+      state: home
+    - condition: state
+      entity_id: binary_sensor.rpi_power_status
+      state: 'on'
+  action:
+  - service: persistent_notification.create
+    data:
+      message: Check Raspberry PI power supply!
+  mode: single
