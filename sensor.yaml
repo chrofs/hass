@@ -3,22 +3,22 @@
 # NodeMCU sensors
 - platform: mqtt
   name: "Livingroom temperature"
-  state_topic: "Temp715487"
-  unit_of_measurement: "°C"
-
-- platform: mqtt
-  name: "Livingroom humidity"
-  state_topic: "Humid715487"
-  unit_of_measurement: "%"
-
-- platform: mqtt
-  name: "Kitchen temperature"
   state_topic: "Temp715644"
   unit_of_measurement: "°C"
 
 - platform: mqtt
-  name: "Kitchen humidity"
+  name: "Livingroom humidity"
   state_topic: "Humid715644"
+  unit_of_measurement: "%"
+
+- platform: mqtt
+  name: "Kitchen temperature"
+  state_topic: "Temp715487"
+  unit_of_measurement: "°C"
+
+- platform: mqtt
+  name: "Kitchen humidity"
+  state_topic: "Humid715487"
   unit_of_measurement: "%"
 
 - platform: mqtt
@@ -101,14 +101,14 @@
 - platform: template
   sensors:
     vacuum_status:
-      value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.status }}'
       friendly_name: 'Status'
       icon_template: >-
-          {% if is_state_attr('vacuum.xiaomi_vacuum_cleaner' ,'status', 'Charging') %}
+          {% if is_state_attr('vacuum.rockrobo_vacuum_v1' ,'status', 'Charging') %}
             mdi:power-plug
-          {% elif is_state_attr('vacuum.xiaomi_vacuum_cleaner' ,'status', 'Returning home') %}
+          {% elif is_state_attr('vacuum.rockrobo_vacuum_v1' ,'status', 'Returning home') %}
             mdi:home-outline
-          {% elif is_state_attr('vacuum.xiaomi_vacuum_cleaner' ,'status', 'Cleaning') %}
+          {% elif is_state_attr('vacuum.rockrobo_vacuum_v1' ,'status', 'Cleaning') %}
             mdi:broom
           {% else %}
             mdi:information-outline
@@ -116,25 +116,25 @@
 - platform: template
   sensors:
     vacuum_fan_speed:
-      value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.fan_speed }}'
       friendly_name: 'Fan speed'
 - platform: template
   sensors:
     vacuum_battery_level:
-      value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.battery_level }}'
       friendly_name: 'Battery level'
       unit_of_measurement: "%"
-      icon_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}'
+      icon_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.battery_icon }}'
 - platform: template
   sensors:
     vacuum_cleaned_area:
-      value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.cleaned_area }}'
       friendly_name: 'Cleaned area'
       unit_of_measurement: "m²"
 - platform: template
   sensors:
     vacuum_cleaning_time:
-      value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.cleaning_time }}'
       friendly_name: 'Cleaning time'
 - platform: sql
   db_url: !secret db_url

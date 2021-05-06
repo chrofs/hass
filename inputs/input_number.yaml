@@ -5,25 +5,21 @@ livingroom_energy_at_midnight:
   min: 0
   max: 10000
   unit_of_measurement: kWh
-  initial: false
 bedroom_energy_at_midnight:
   name: bedroom_energy_at_midnight
   mode: box
   min: 0
   max: 10000
   unit_of_measurement: kWh
-  initial: false
 kitchen_energy_at_midnight:
   name: kitchen_energy_at_midnight
   mode: box
   min: 0
   max: 10000
   unit_of_measurement: kWh
-  initial: false
 livingroom_ceiling_energy_at_midnight:
   name: livingroom_ceiling_energy_at_midnight
   mode: box
   min: 0
   max: 10000
   unit_of_measurement: kWh
-  initial: false
