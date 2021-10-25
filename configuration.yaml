@@ -16,8 +16,13 @@ homeassistant:
   # Allow iPhone to gain access
   auth_providers:
       - type: homeassistant
+  #    - type: trusted_networks
+
+  currency: NOK
 
 # Show links to resources in log and frontend
+
+energy:
 
 system_health:
 
@@ -69,7 +74,7 @@ http:
   # Uncomment this if you are using SSL or running in Docker etc
   #base_url: !secret base_url
   ip_ban_enabled: True
-  login_attempts_threshold: 2
+  login_attempts_threshold: 3
 
 # Checks for available updates
 
@@ -77,6 +82,7 @@ http:
 discovery:
 zeroconf:
 # Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
 
 # Enables support for tracking state changes over time.
 history:
@@ -143,6 +149,10 @@ logbook:
 # Track the sun
 sun:
 
+# Text to speech
+#tts:
+  #platform: google
+
 # mqtt
 mqtt:
   broker: !secret mqtt_broker
@@ -167,10 +177,28 @@ media_player:
   access_token: !secret lg_access_token
   name: TV
 
+#Spotify
+#  - platform: spotify
+#    client_id: !secret spotify_client_id
+#    client_secret: !secret spotify_client_secret
+#    name: Spotify
+
+#Ruter
+#panel_iframe:
+#  ruter:
+#    title: 'Ruter'
+#    icon: mdi:train
+#    url: !secret ruter_url
+
 #IOS app
 ios:
 mobile_app:
 cloud:
+#Notifier
+#notify:
+#  - platform: ios
+#    name: iOSApp
+#    target: !secret spotify_target
 
 # Sensors
 sensor: !include sensor.yaml
@@ -185,6 +213,7 @@ automation: !include automations.yaml
 input_boolean: !include inputs/input_boolean.yaml
 input_number: !include inputs/input_number.yaml
 input_select: !include inputs/input_select.yaml
+#input_slider: !include inputs/input_slider.yaml
 
 #Configuration page
 config:
@@ -197,9 +226,22 @@ zwave:
   usb_path: /dev/ttyACM0
   polling_interval:  120000
 
+#IKEA tradfri
+#tradfri:
+#  host: !secret tradfri_host
+
+#Xiaomi vacuum
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+
 logger:
   default: warn
   logs:
+    # Hide vacuum connecion errors which happen sometimes:
+    homeassistant.components.vacuum: error
+    miio.device: critical
     miflora: error
 
 device_sun_light_trigger:
@@ -224,7 +266,19 @@ climate:
       seconds: 5
     keep_alive:
       minutes: 3
-
+#  - platform: generic_thermostat
+#    name: Kitchen
+#    heater: switch.fibaro_wall_plug_kitchen_switch
+#    target_sensor: sensor.kitchen_temperature
+#    target_temp: 18
+#    min_temp: 15
+#    max_temp: 25
+#    cold_tolerance: 0.1
+#    hot_tolerance: 0.1
+#    min_cycle_duration:
+#      seconds: 5
+#    keep_alive:
+#      minutes: 3
   - platform: generic_thermostat
     name: Bedroom
     heater: switch.fibaro_wall_plug_bedroom_switch
@@ -238,14 +292,3 @@ climate:
       seconds: 5
     keep_alive:
       minutes: 3
-
-alert:
-  dishwasher:
-    name: Open dishwasher!
-    entity_id: input_select.dishwasher_status
-    state: 'Closed'
-    repeat: 5
-    can_acknowledge: true
-    skip_first: true
-    notifiers:
-      - mobile_app_c_iphone
