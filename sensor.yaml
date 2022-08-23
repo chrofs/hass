@@ -115,27 +115,11 @@
           {% endif %}
 - platform: template
   sensors:
-    vacuum_fan_speed:
-      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.fan_speed }}'
-      friendly_name: 'Fan speed'
-- platform: template
-  sensors:
     vacuum_battery_level:
-      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.battery_level }}'
+      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.battery_level| round(default=0) }}'
       friendly_name: 'Battery level'
       unit_of_measurement: "%"
       icon_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.battery_icon }}'
-- platform: template
-  sensors:
-    vacuum_cleaned_area:
-      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.cleaned_area }}'
-      friendly_name: 'Cleaned area'
-      unit_of_measurement: "m²"
-- platform: template
-  sensors:
-    vacuum_cleaning_time:
-      value_template: '{{ states.vacuum.rockrobo_vacuum_v1.attributes.cleaning_time }}'
-      friendly_name: 'Cleaning time'
 - platform: sql
   db_url: !secret db_url
   queries:
@@ -146,45 +130,32 @@
 - platform: template
   sensors:
     current_power_consumption:
-      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_power")|int + states("sensor.fibaro_wall_plug_bedroom_power")|int + states("sensor.fibaro_wall_plug_kitchen_power")|int + states("sensor.fibaro_dimmer_livingroom_power")|int }}'
+      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_power")|int(default=0) + states("sensor.fibaro_wall_plug_bedroom_power")|int(default=0) + states("sensor.fibaro_wall_plug_kitchen_power")|int(default=0) + states("sensor.fibaro_dimmer_livingroom_power")|int(default=0) }}'
       friendly_name: 'Current power consumption'
       unit_of_measurement: W
-#- platform: template
-#  sensors:
-#    livingroom_power_yesterday:
-#      value_template: >
-#        {% if now().hour == 21 and now().minute == 10 %}
-#          {{ states("sensor.fibaro_wall_plug_livingroom_energy") | float }}
-#        {%- endif %}
-#
-#- platform: template
-#  sensors:
-#    livingroom_daily_power:
-#      value_template: '{{ states("sensor.fibaro_wall_plug_livingroom_energy")|float - states("sensor.livingroom_power_yesterday")|float }}'
-#      friendly_name: 'Current power consumption'
-#      unit_of_measurement: kWh
 - platform: template
   sensors:
     daily_livingroom_power_consumption:
-      value_template: "{{ (states('sensor.fibaro_wall_plug_livingroom_energy')|float - states('input_number.livingroom_energy_at_midnight')|float) | round(1) }}"
+      unique_id: daily_livingroom_power_consumption
+      value_template: "{{ (states('sensor.fibaro_wall_plug_livingroom_energy')|float(default=0) - states('input_number.livingroom_energy_at_midnight')|float(default=0)) | round(1, default=0) }}"
       unit_of_measurement: kWh
 - platform: template
   sensors:
     daily_bedroom_power_consumption:
-      value_template: "{{ (states('sensor.fibaro_wall_plug_bedroom_energy')|float - states('input_number.bedroom_energy_at_midnight')|float) | round(1) }}"
+      value_template: "{{ (states('sensor.fibaro_wall_plug_bedroom_energy')|float(default=0) - states('input_number.bedroom_energy_at_midnight')|float(default=0)) | round(1, default=0) }}"
       unit_of_measurement: kWh
 - platform: template
   sensors:
     daily_kitchen_power_consumption:
-      value_template: "{{ (states('sensor.fibaro_wall_plug_kitchen_energy')|float - states('input_number.kitchen_energy_at_midnight')|float) | round(1) }}"
+      value_template: "{{ (states('sensor.fibaro_wall_plug_kitchen_energy')|float(default=0) - states('input_number.kitchen_energy_at_midnight')|float(default=0)) | round(1, default=0) }}"
       unit_of_measurement: kWh
 - platform: template
   sensors:
     daily_total_power_consumption:
-      value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float + states('sensor.daily_bedroom_power_consumption')|float + states('sensor.daily_kitchen_power_consumption')|float + states('sensor.daily_livingroom_ceiling_power_consumption')|float) | round(1) }}"
+      value_template: "{{ (states('sensor.daily_livingroom_power_consumption')|float(default=0) + states('sensor.daily_bedroom_power_consumption')|float(default=0) + states('sensor.daily_kitchen_power_consumption')|float(default=0) + states('sensor.daily_livingroom_ceiling_power_consumption')|float(default=0)) | round(1, default=0) }}"
       unit_of_measurement: kWh
 - platform: template
   sensors:
     daily_livingroom_ceiling_power_consumption:
-      value_template: "{{ (states('sensor.fibaro_dimmer_livingroom_energy')|float - states('input_number.livingroom_ceiling_energy_at_midnight')|float) | round(1) }}"
+      value_template: "{{ (states('sensor.fibaro_dimmer_livingroom_energy')|float(default=0) - states('input_number.livingroom_ceiling_energy_at_midnight')|float(default=0)) | round(1, default=0) }}"
       unit_of_measurement: kWh

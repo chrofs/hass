@@ -143,12 +143,11 @@
   initial_state: true
 - id: reset_night_temp
   alias: Reset night temp
-  initial_state: true
   trigger:
-    platform: time
-    at: 04:45:00
+  - platform: time
+    at: 04:00:00
   condition:
-    condition: state
+  - condition: state
     entity_id: input_boolean.away_mode
     state: 'off'
   action:
@@ -160,6 +159,7 @@
     data_template:
       entity_id: climate.livingroom
       temperature: 18
+  initial_state: true
 - id: reduce_weekend_temp
   alias: Reduce weekend temp
   initial_state: true
@@ -288,19 +288,23 @@
   - service: input_number.set_value
     data_template:
       entity_id: input_number.livingroom_energy_at_midnight
-      value: '{{ states(''sensor.fibaro_wall_plug_livingroom_energy'')|float }}'
+      value: '{{ states(''sensor.fibaro_wall_plug_livingroom_energy'')|float(default=0)
+        }}'
   - service: input_number.set_value
     data_template:
       entity_id: input_number.bedroom_energy_at_midnight
-      value: '{{ states(''sensor.fibaro_wall_plug_bedroom_energy'')|float }}'
+      value: '{{ states(''sensor.fibaro_wall_plug_bedroom_energy'')|float(default=0)
+        }}'
   - service: input_number.set_value
     data_template:
       entity_id: input_number.kitchen_energy_at_midnight
-      value: '{{ states(''sensor.fibaro_wall_plug_kitchen_energy'')|float }}'
+      value: '{{ states(''sensor.fibaro_wall_plug_kitchen_energy'')|float(default=0)
+        }}'
   - service: input_number.set_value
     data_template:
       entity_id: input_number.livingroom_ceiling_energy_at_midnight
-      value: '{{ states(''sensor.fibaro_dimmer_livingroom_energy'')|float }}'
+      value: '{{ states(''sensor.fibaro_dimmer_livingroom_energy'')|float(default=0)
+        }}'
 - id: freeze_detection_livingroom
   alias: freeze_detection_livingroom
   initial_state: true
@@ -476,4 +480,35 @@
   - service: persistent_notification.create
     data:
       message: Check Raspberry PI power supply!
+  mode: single
+- id: '1636490495909'
+  alias: Align Ikea lights
+  description: ''
+  trigger:
+  - platform: event
+    event_type: light.turn_on
+    context:
+      user_id:
+      - 6d579d136e4b4fa88d056168b16ccc5e
+      - 8af7c12125f046d19a65acf8bdf4d8f8
+    id: '1'
+  - platform: state
+    entity_id: light.tradfri_bulb_e27_ws_opal_980lm
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.tradfri_bulb_e27_ws_opal_980lm_2
+      state: 'on'
+    - condition: not
+      conditions:
+      - condition: trigger
+        id: '1'
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.tradfri_bulb_e27_ws_opal_980lm
   mode: single

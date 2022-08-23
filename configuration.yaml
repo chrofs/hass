@@ -211,8 +211,6 @@ device_sun_light_trigger:
   device_group: group.my_devices
   disable_turn_off: 0
 
-homekit:
-
 # Thermostats
 climate:
   - platform: generic_thermostat

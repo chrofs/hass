@@ -74,12 +74,6 @@ light.tradfri_bulb_e27_ws_opal_980lm_2:
   friendly_name: Upward lamp
 light.tradfri_bulb_e27_ws_opal_980lm:
   friendly_name: Sideways lamp
-sensor.vacuum_fan_speed:
-  icon: mdi:fan
-sensor.vacuum_cleaned_area:
-  icon: mdi:earth-box
-sensor.vacuum_cleaning_time:
-  icon: mdi:clock
 device_tracker.pi_iphone:
   icon: mdi:home
 sensor.tradfri_remote_control:
@@ -116,5 +110,3 @@ sensor.fibaro_dimmer_livingroom_energy:
   icon: mdi:chart-bar
 sensor.dishwasher_status:
   icon: mdi:dishwasher
-zone.pi_iphone_here_1603397197_test:
-  tracking: 'false'
