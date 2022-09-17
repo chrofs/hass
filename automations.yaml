@@ -53,6 +53,8 @@
       - wed
       - thu
       - fri
+      before: 00:00:00
+      after: 00:00:00
     - condition: state
       entity_id: input_boolean.away_mode
       state: 'off'
@@ -433,7 +435,7 @@
   - condition: and
     conditions:
     - after: 07:00:00
-      before: '23:00:00'
+      before: '23:59:00'
       condition: time
     - condition: state
       entity_id: device_tracker.c_iphone_3
